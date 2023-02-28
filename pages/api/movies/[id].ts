@@ -1,4 +1,4 @@
-import { movie } from "@/lib/movie"
+import { getMovie } from "@/lib/movie"
 import { NextApiRequest, NextApiResponse } from "next"
 
 export default async function handler(
@@ -6,6 +6,6 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   const { id } = req.query
-  const film = await movie.get(Number.parseInt(id as string))
+  const film = await getMovie(Number.parseInt(id as string))
   res.status(200).json(film)
 }

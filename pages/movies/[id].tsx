@@ -1,7 +1,7 @@
 import NotFound from "@/components/notFound"
-import { movie } from "@/lib/movie"
+import { getMovie, getPoster } from "@/lib/movie"
 import { Movie } from "@/types/movie"
-import { Box } from "@chakra-ui/react"
+import { Box, Image } from "@chakra-ui/react"
 import { GetServerSideProps, NextPage } from "next"
 
 interface Props {
@@ -16,13 +16,18 @@ const MoviePage: NextPage<Props> = ({ film }) => {
       </Box>
     )
 
-  return <>{film.title}</>
+  return (
+    <>
+      <Image src={getPoster(film.backdrop_path)} />
+      {film.title}
+    </>
+  )
 }
 
 export const getServerSideProps: GetServerSideProps = async ctx => {
   const { id } = ctx.query
 
-  const film = await movie.get(Number.parseInt(id as string))
+  const film = await getMovie(Number.parseInt(id as string))
   return {
     props: {
       film: film,

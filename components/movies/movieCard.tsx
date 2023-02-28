@@ -1,4 +1,4 @@
-import { movie } from "@/lib/movie"
+import { getPoster } from "@/lib/movie"
 import { Movie } from "@/types/movie"
 import {
   Box,
@@ -22,7 +22,7 @@ const MovieCard: NextPage<Props> = ({ film }) => (
       <LinkOverlay href={`/movies/${film.id}`}>
         <Box minW="300px">
           <HStack>
-            <Image maxH="100px" src={movie.getImagePath(film.poster_path)} />
+            <Image maxH="100px" src={getPoster(film.poster_path)} />
             <VStack align="left">
               <Heading as="h3" size="md" verticalAlign="top">
                 {film.title} - {film.id}
