@@ -1,7 +1,7 @@
 import NotFound from "@/components/notFound"
-import { getMovie, getPoster } from "@/lib/movie"
+import { getBackdropImage, getMovie } from "@/lib/movie"
 import { Movie } from "@/types/movie"
-import { Box, Image } from "@chakra-ui/react"
+import { Box } from "@chakra-ui/react"
 import { GetServerSideProps, NextPage } from "next"
 
 interface Props {
@@ -16,10 +16,20 @@ const MoviePage: NextPage<Props> = ({ film }) => {
       </Box>
     )
 
+  console.log(JSON.stringify(film))
   return (
     <>
-      <Image src={getPoster(film.backdrop_path)} />
-      {film.title}
+      <Box
+        backgroundSize="cover"
+        minH="100vh"
+        bgImage={`linear-gradient(rgba(0, 0, 0, 0),
+          rgba(0, 0, 0, 1)), 
+          url(${getBackdropImage(film.backdrop_path)})`}
+      >
+        {film.title}
+        <br />
+        {film.tagline}
+      </Box>
     </>
   )
 }

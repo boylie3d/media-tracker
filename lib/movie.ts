@@ -1,12 +1,4 @@
-import { Error, Movie, PaginatedMovie } from "@/types/movie"
-
-interface imageSizes {
-  backdrop_sizes: "w300" | "w780" | "w1280" | "original"
-  // logo_sizes: ["w45", "w92", "w154", "w185", "w300", "w500", "original"],
-  // poster_sizes: ["w92", "w154", "w185", "w342", "w500", "w780", "original"],
-  // profile_sizes: ["w45", "w185", "h632", "original"],
-  // still_sizes: ["w92", "w185", "w300", "original"],
-}
+import { Error, MoviePartial, PaginatedMovie } from "@/types/movie"
 
 export const findMovie = async (searchTerms: string) => {
   const req = await fetch(
@@ -25,13 +17,59 @@ export const getMovie = async (id: number) => {
     return err
   }
 
-  const resp = (await req.json()) as Movie
+  const resp = (await req.json()) as MoviePartial
   return resp
 }
 
-export const getPoster = (
+export const getPosterImage = (
   url: string,
-  size: "w92" | "w154" | "w185" | "w342" | "w500" | "w780" | "original" = "w92",
+  size:
+    | "w92"
+    | "w154"
+    | "w185"
+    | "w342"
+    | "w500"
+    | "w780"
+    | "original" = "original",
 ) => {
+  return formatImgInternal(size, url)
+}
+
+export const getBackdropImage = (
+  url: string,
+  size: "w300" | "w780" | "w1280" | "original" = "original",
+) => {
+  return formatImgInternal(size, url)
+}
+
+export const getLogoImage = (
+  url: string,
+  size:
+    | "w45"
+    | "w92"
+    | "w154"
+    | "w185"
+    | "w300"
+    | "w500"
+    | "original" = "original",
+) => {
+  return formatImgInternal(size, url)
+}
+
+export const getProfileImage = (
+  url: string,
+  size: "w45" | "w185" | "h632" | "original" = "original",
+) => {
+  return formatImgInternal(size, url)
+}
+
+export const getStillImage = (
+  url: string,
+  size: "w92" | "w185" | "w300" | "original" = "original",
+) => {
+  return formatImgInternal(size, url)
+}
+
+const formatImgInternal = (size: string, url: string) => {
   return `${process.env.NEXT_PUBLIC_TMDB_IMAGE_ROOT}/${size}${url}`
 }

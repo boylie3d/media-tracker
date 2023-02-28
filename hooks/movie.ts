@@ -1,4 +1,4 @@
-import { Movie, PaginatedMovie } from "@/types/movie"
+import { MoviePartial, PaginatedMovie } from "@/types/movie"
 import useSWR from "swr"
 
 const fetcher = (url: URL) => fetch(url).then(res => res.json())
@@ -17,7 +17,7 @@ export function UseMovie(id: number) {
   const { data, error } = useSWR(`/api/movies/${id}`)
 
   return {
-    data: data as Movie,
+    data: data as MoviePartial,
     loading: !error && !data,
     error: error,
   }
