@@ -1,5 +1,7 @@
+import NotFound from "@/components/notFound"
 import { movie } from "@/lib/movie"
 import { Movie } from "@/types/movie"
+import { Box } from "@chakra-ui/react"
 import { GetServerSideProps, NextPage } from "next"
 
 interface Props {
@@ -7,9 +9,14 @@ interface Props {
 }
 
 const MoviePage: NextPage<Props> = ({ film }) => {
-  if (!film) return <div>shrug</div>
+  if (!film.id)
+    return (
+      <Box h="100vh">
+        <NotFound />
+      </Box>
+    )
 
-  return <div>{film.title}</div>
+  return <>{film.title}</>
 }
 
 export const getServerSideProps: GetServerSideProps = async ctx => {

@@ -5,6 +5,7 @@ import {
   Heading,
   HStack,
   Image,
+  LinkBox,
   LinkOverlay,
   Text,
   VStack,
@@ -17,19 +18,21 @@ interface Props {
 
 const MovieCard: NextPage<Props> = ({ film }) => (
   <>
-    <LinkOverlay href={`/movies/${film.id}`}>
-      <Box minW="300px">
-        <HStack>
-          <Image maxH="100px" src={movie.getImagePath(film.poster_path)} />
-          <VStack align="left">
-            <Heading as="h3" size="md" verticalAlign="top">
-              {film.title} - {film.id}
-            </Heading>
-            <Text noOfLines={2}>{film.overview}</Text>
-          </VStack>
-        </HStack>
-      </Box>
-    </LinkOverlay>
+    <LinkBox as="article" maxW="sm" p="5" borderWidth="1px" rounded="md">
+      <LinkOverlay href={`/movies/${film.id}`}>
+        <Box minW="300px">
+          <HStack>
+            <Image maxH="100px" src={movie.getImagePath(film.poster_path)} />
+            <VStack align="left">
+              <Heading as="h3" size="md" verticalAlign="top">
+                {film.title} - {film.id}
+              </Heading>
+              <Text noOfLines={2}>{film.overview}</Text>
+            </VStack>
+          </HStack>
+        </Box>
+      </LinkOverlay>
+    </LinkBox>
   </>
 )
 

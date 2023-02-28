@@ -21,6 +21,12 @@ export interface Movie {
   vote_count: number
 }
 
+export interface Error {
+  status_code: number
+  status_message: string
+  success: boolean
+}
+
 export interface PaginatedMovie extends PaginatedItem {
   results: Movie[]
 }

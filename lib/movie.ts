@@ -1,4 +1,4 @@
-import { Movie, PaginatedMovie } from "@/types/movie"
+import { Error, Movie, PaginatedMovie } from "@/types/movie"
 /** Server side only: logic for fetching info on movies */
 export const movie = {
   find: async (searchTerms: string) => {
@@ -13,6 +13,11 @@ export const movie = {
     const req = await fetch(
       `${process.env.TMDB_API}/movie/${id}?api_key=${process.env.MOVIEDB_API_KEY}`,
     )
+    if (!req.ok) {
+      const err = (await req.json()) as Error
+      return err
+    }
+
     const resp = (await req.json()) as Movie
     return resp
   },
