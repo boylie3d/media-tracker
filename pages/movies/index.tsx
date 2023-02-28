@@ -20,7 +20,8 @@ const Movies: NextPage<Props> = ({}) => {
     <>
       <Searchbar onSubmit={search} />
       <Stack direction={["column", "row"]}>
-        {movies && movies.results.map(film => <MovieCard film={film} />)}
+        {movies &&
+          movies.results.map(film => <MovieCard key={film.id} film={film} />)}
       </Stack>
     </>
   )
